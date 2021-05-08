@@ -10,12 +10,10 @@ class Food(Turtle):
         self.shapesize(stretch_len=0.5, stretch_wid=0.5)
         self.color('red')
         self.speed('fastest')
-        self.refrech_food_location()
+        self.refresh_food_location()
 
-
-    def refrech_food_location(self):
+    def refresh_food_location(self):
         random_x = random.randint(-280, 280)
         random_y = random.randint(-280, 280)
         # create in random location
         self.goto(random_x, random_y)
-
