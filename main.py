@@ -9,11 +9,10 @@ score = Score()
 
 screen = Screen()
 screen.setup(width=600, height=600)
-screen.bgcolor('grey')
+screen.bgcolor('black')
 screen.title("Retro Snake Game")
 screen.tracer(0)
 screen.listen()
-num = 0
 snake = Snake()
 game_is_on = True
 
@@ -30,10 +29,23 @@ while game_is_on:
 
     # detect collision with food
     if snake.head.distance(food) < 15:
-        print("collided")
         food.refresh_food_location()
+        snake.extend_segment()
         score.clear()
-        score.increase_score(num)
-        num += 1
+        score.increase_score()
+
+    # detect collision with wall
+    if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
+        game_is_on = False
+        score.game_over()
+
+    # detect collision with snakes tail
+    for segment in snake.segments:
+        print(segment)
+        if segment == snake.head:
+            pass
+        elif snake.head.distance(segment) < 10:
+            game_is_on = False
+            score.game_over()
 
 screen.exitonclick()
